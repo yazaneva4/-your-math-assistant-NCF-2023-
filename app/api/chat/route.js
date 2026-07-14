@@ -64,6 +64,7 @@ export async function POST(request) {
     return Response.json({ content: [{ type: "text", text }] });
   } catch (err) {
     const message = err && err.message ? err.message : "Unknown error";
+    console.error("OpenAI request failed:", err?.status, message);
     return Response.json({ error: message }, { status: 502 });
   }
 }
