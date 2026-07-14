@@ -1,0 +1,18 @@
+{
+  "name": "your-math-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "lucide-react": "^0.454.0",
+    "next": "15.5.20",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
