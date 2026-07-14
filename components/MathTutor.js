@@ -1527,10 +1527,10 @@ const CSS = `
 }
 
 * { box-sizing: border-box; }
-.mt-app { font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.mt-app { font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
 
 /* ---- Top bar ---- */
-.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--navy); color: white; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; padding-top: max(14px, env(safe-area-inset-top)); padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); background: var(--navy); color: white; }
 .topbar-left { display: flex; align-items: center; gap: 12px; }
 .topbar-right { display: flex; align-items: center; gap: 8px; }
 .brand-badge { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--orange), #FFB066); display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
@@ -1574,10 +1574,10 @@ const CSS = `
 }
 
 /* ---- Reference panel ---- */
-.ref-panel { background: var(--paper); border-right: 1px solid #ECE3D2; padding: 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; min-height: 0; }
+.ref-panel { background: var(--paper); border-right: 1px solid #ECE3D2; padding: 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; overflow-x: hidden; min-height: 0; }
 .ref-card { background: white; border: 1px solid #ECE3D2; border-radius: 14px; padding: 14px; }
 .ref-card-head { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-soft); margin-bottom: 10px; }
-.ref-card-head--tabs { gap: 8px; margin-bottom: 12px; }
+.ref-card-head--tabs { gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
 .mode-tab { display: flex; align-items: center; gap: 5px; background: #F2EBDC; border: 1px solid transparent; color: var(--ink-soft); font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: background 0.15s, color 0.15s; }
 .mode-tab--active { background: var(--navy); color: white; }
 .mode-tab:hover:not(.mode-tab--active) { background: #E8DFC9; }
@@ -1585,7 +1585,7 @@ const CSS = `
 /* ---- Live calculator ---- */
 .calc-wrap { margin-top: 12px; }
 .calc-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
-.calc-input { width: 0; flex: 1.3; min-width: 0; border: 1.5px solid #ECE3D2; border-radius: 10px; padding: 8px 6px; font-size: 14px; font-weight: 800; text-align: center; color: var(--navy); background: white; font-family: inherit; outline: none; }
+.calc-input { width: 0; flex: 1.3; min-width: 0; border: 1.5px solid #ECE3D2; border-radius: 10px; padding: 8px 6px; font-size: 16px; font-weight: 800; text-align: center; color: var(--navy); background: white; font-family: inherit; outline: none; }
 .calc-input:focus { border-color: var(--orange); }
 .calc-op-toggle { display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; border: 1.5px solid #ECE3D2; flex-shrink: 0; }
 .op-btn { width: 26px; height: 18px; border: none; background: white; color: var(--ink-soft); font-weight: 800; font-size: 12px; cursor: pointer; line-height: 1; }
@@ -1617,7 +1617,7 @@ const CSS = `
 .roman-row { background: #FBF7EE; border: 1px dashed #D9CBA9; border-radius: 10px; padding: 10px; }
 .roman-row-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: var(--ink-soft); margin-bottom: 7px; }
 .roman-io { display: flex; align-items: center; gap: 8px; }
-.roman-input { flex: 1.2; min-width: 0; border: 1.5px solid #ECE3D2; border-radius: 10px; padding: 8px 6px; font-size: 14px; font-weight: 800; text-align: center; color: var(--navy); background: white; font-family: inherit; outline: none; }
+.roman-input { flex: 1.2; min-width: 0; border: 1.5px solid #ECE3D2; border-radius: 10px; padding: 8px 6px; font-size: 16px; font-weight: 800; text-align: center; color: var(--navy); background: white; font-family: inherit; outline: none; }
 .roman-input--text { font-family: 'Courier New', monospace; letter-spacing: 0.5px; }
 .roman-input:focus { border-color: var(--orange); }
 .roman-arrow { font-weight: 800; color: var(--ink-soft); flex-shrink: 0; }
@@ -1688,7 +1688,7 @@ const CSS = `
 .starter-chip { background: white; border: 1px solid #ECE3D2; color: var(--navy-soft); font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
 .starter-chip:hover { border-color: var(--orange); color: var(--orange); }
 
-.input-row { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: white; border-top: 1px solid #ECE3D2; }
+.input-row { display: flex; align-items: center; gap: 8px; padding: 12px 16px; padding-bottom: max(12px, env(safe-area-inset-bottom)); padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); background: white; border-top: 1px solid #ECE3D2; }
 .reset-btn, .send-btn, .attach-btn, .mic-btn { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; transition: opacity 0.15s, transform 0.1s, background 0.15s, color 0.15s; }
 .reset-btn { background: #F2EBDC; color: var(--ink-soft); }
 .reset-btn:hover { background: #E8DFC9; }
@@ -1703,7 +1703,7 @@ const CSS = `
 .send-btn { background: var(--orange); color: white; }
 .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .send-btn:not(:disabled):hover { transform: scale(1.06); }
-.text-input { flex: 1; border: 1px solid #ECE3D2; background: var(--cream); border-radius: 999px; padding: 10px 16px; font-size: 14px; outline: none; color: var(--navy); font-family: inherit; }
+.text-input { flex: 1; border: 1px solid #ECE3D2; background: var(--cream); border-radius: 999px; padding: 10px 16px; font-size: 16px; outline: none; color: var(--navy); font-family: inherit; }
 .text-input:focus { border-color: var(--orange); }
 .text-input::placeholder { color: #B3A892; }
 
