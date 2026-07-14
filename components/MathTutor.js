@@ -1166,7 +1166,7 @@ export default function MathTutor() {
           } catch (_) {}
           const friendly =
             response.status === 503 || /not configured|api key/i.test(serverMsg)
-              ? "I'm almost ready! 🛠️ The tutor's connection to OpenAI hasn't been set up yet — whoever set up this site needs to add the OPENAI_API_KEY. (See the README.)"
+              ? "I'm almost ready! 🛠️ The tutor's AI connection hasn't been set up yet — whoever set up this site needs to add an ANTHROPIC_API_KEY or OPENAI_API_KEY. (See the README.)"
               : "Oops, my rocket signal got lost on the way back from the moon! 🛰️ Could you try sending that again?";
           setMessages((prev) => [...prev, { role: "assistant", content: friendly }]);
           return;
