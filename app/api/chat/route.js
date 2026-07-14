@@ -92,7 +92,7 @@ async function callGemini({ system, messages, max_tokens }) {
     parts: toGeminiParts(m.content),
   }));
   const response = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+    model: process.env.GEMINI_MODEL || "gemini-3.5-flash",
     contents,
     config: { systemInstruction: system, maxOutputTokens: max_tokens },
   });
