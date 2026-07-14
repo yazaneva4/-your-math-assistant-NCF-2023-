@@ -1,12 +1,32 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
+
+// The client (components/MathTutor.js) builds its request/response
+// expectations around Anthropic's Messages API shape — a top-level
+// "system" string, and message "content" that's either a plain string or
+// an array of blocks like { type: "image", source: { media_type, data } }
+// / { type: "text", text }. This route accepts that same shape from the
+// browser (so the UI never has to know which provider is behind it) and
+// translates it to/from OpenAI's Chat Completions format here.
+function toOpenAiContent(content) {
+  if (typeof content === "string") return content;
+  if (!Array.isArray(content)) return "";
+  return content.map((block) => {
+    if (block.type === "image") {
+      return {
+        type: "image_url",
+        image_url: { url: `data:${block.source.media_type};base64,${block.source.data}` },
+      };
+    }
+    return { type: "text", text: block.text || "" };
+  });
+}
 
 export async function POST(request) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return Response.json(
       {
-        error:
-          "The tutor isn't configured yet — ANTHROPIC_API_KEY is missing on the server.",
+        error: "The tutor isn't configured yet — OPENAI_API_KEY is missing on the server.",
       },
       { status: 503 }
     );
@@ -24,16 +44,24 @@ export async function POST(request) {
     return Response.json({ error: "No messages provided." }, { status: 400 });
   }
 
-  const anthropic = new Anthropic({ apiKey });
+  const openai = new OpenAI({ apiKey });
+
+  const openAiMessages = [
+    ...(system ? [{ role: "system", content: system }] : []),
+    ...messages.map((m) => ({ role: m.role, content: toOpenAiContent(m.content) })),
+  ];
 
   try {
-    const response = await anthropic.messages.create({
-      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-5",
+    const completion = await openai.chat.completions.create({
+      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
       max_tokens: Math.min(Math.max(Number(max_tokens) || 1000, 1), 4096),
-      system,
-      messages,
+      messages: openAiMessages,
     });
-    return Response.json(response);
+
+    const text = completion.choices?.[0]?.message?.content || "";
+    // Re-shaped to match what the client expects (mirrors the Anthropic
+    // content-block array it was originally written against).
+    return Response.json({ content: [{ type: "text", text }] });
   } catch (err) {
     const message = err && err.message ? err.message : "Unknown error";
     return Response.json({ error: message }, { status: 502 });
