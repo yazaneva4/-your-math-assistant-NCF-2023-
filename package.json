@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
@@ -16,5 +16,9 @@
     "openai": "^4.71.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "15.5.20"
   }
 }
